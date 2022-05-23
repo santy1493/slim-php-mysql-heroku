@@ -25,6 +25,7 @@ class AccesoDatos
 
     public function prepararConsulta($sql)
     {
+        var_dump($_ENV['MYSQL_DB']);
         return $this->objetoPDO->prepare($sql);
     }
 
