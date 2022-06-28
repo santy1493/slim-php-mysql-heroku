@@ -1,23 +1,35 @@
 <?php
-require_once './models/Usuario.php';
+require_once './models/Pedido.php';
+require_once './models/Item.php';
+require_once './models/ItemDTO.php';
 require_once './interfaces/IApiUsable.php';
 
-class UsuarioController extends Usuario implements IApiUsable
+class PedidoController extends Pedido implements IApiUsable
 {
     public function CargarUno($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
 
-        $usuario = $parametros['usuario'];
-        $clave = $parametros['clave'];
+        $items = $parametros['items'];
 
         // Creamos el usuario
-        $usr = new Usuario();
-        $usr->usuario = $usuario;
-        $usr->clave = $clave;
-        $usr->crearUsuario();
+        $pedido = new Pedido();
+        $id_pedido = $pedido->crearPedido();
+        $pedido->id = $id_pedido;
 
-        $payload = json_encode(array("mensaje" => "Usuario creado con exito"));
+        foreach($items as $item) {
+
+            $newItem = new Item();
+            $newItem->id_producto = $item['id_producto'];
+            $newItem->cantidad = $item['cantidad'];
+            $newItem->id_pedido = $id_pedido;
+
+            $newItem->crearItem();
+        }
+
+        $pedido->calcularPrecioPedido();
+
+        $payload = json_encode(array("mensaje" => "Pedido creado con exito"));
 
         $response->getBody()->write($payload);
         return $response
@@ -26,10 +38,10 @@ class UsuarioController extends Usuario implements IApiUsable
 
     public function TraerUno($request, $response, $args)
     {
-        // Buscamos usuario por nombre
-        $usr = $args['usuario'];
-        $usuario = Usuario::obtenerUsuario($usr);
-        $payload = json_encode($usuario);
+        $id = $args['id'];
+        $pedido = Pedido::obtenerPedido($id);
+        $pedido->items = ItemDTO::obtenerItemsDTOPorIdPedido($pedido->id);
+        $payload = json_encode($pedido);
 
         $response->getBody()->write($payload);
         return $response
@@ -38,7 +50,10 @@ class UsuarioController extends Usuario implements IApiUsable
 
     public function TraerTodos($request, $response, $args)
     {
-        $lista = Usuario::obtenerTodos();
+        $lista = Pedido::obtenerTodos();
+        foreach($lista as $pedido) {
+          $pedido->items = ItemDTO::obtenerItemsDTOPorIdPedido($pedido->id);
+        }
         $payload = json_encode(array("listaUsuario" => $lista));
 
         $response->getBody()->write($payload);
@@ -58,6 +73,18 @@ class UsuarioController extends Usuario implements IApiUsable
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function calcularPrecioTotal($id)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta(
+            "UPDATE items SET 
+            estado = 'en preparacion' 
+            WHERE id = :id");
+
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
     }
 
     public function BorrarUno($request, $response, $args)

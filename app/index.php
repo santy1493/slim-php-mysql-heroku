@@ -13,9 +13,15 @@ use Slim\Routing\RouteContext;
 require __DIR__ . '/../vendor/autoload.php';
 
 require_once './db/AccesoDatos.php';
-// require_once './middlewares/Logger.php';
+require_once './middlewares/AutJWT.php';
+require_once './middlewares/Validaciones.php';
+require_once './middlewares/Logger.php';
 
-require_once './controllers/UsuarioController.php';
+require_once './controllers/PedidoController.php';
+require_once './controllers/EmpleadoController.php';
+require_once './controllers/ProductoController.php';
+require_once './controllers/ItemController.php';
+require_once './models/ItemDTO.php';
 
 // Load ENV
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
@@ -31,11 +37,46 @@ $app->addErrorMiddleware(true, true, true);
 $app->addBodyParsingMiddleware();
 
 // Routes
-$app->group('/usuarios', function (RouteCollectorProxy $group) {
-    $group->get('[/]', \UsuarioController::class . ':TraerTodos');
-    $group->get('/{usuario}', \UsuarioController::class . ':TraerUno');
-    $group->post('[/]', \UsuarioController::class . ':CargarUno');
+
+$app->group('/login', function (RouteCollectorProxy $group) {
+  $group->post('[/]', \EmpleadoController::class . ':Login');
+})//->add(\Logger::class . ':LogOperacion');
+  ->add(\Validaciones::class . ':verificarParametrosLogin');
+
+$app->group('/pedidos', function (RouteCollectorProxy $group) {
+    $group->get('[/]', \PedidoController::class . ':TraerTodos')
+      ->add(\Validaciones::class . ':verificarAdmin');
+    $group->get('/{id}', \PedidoController::class . ':TraerUno');
+    $group->post('[/]', \PedidoController::class . ':CargarUno');
+  })
+    ->add(\Logger::class . ':LogOperacion')
+    ->add(\Validaciones::class . ':verificarToken');
+
+$app->group('/items', function (RouteCollectorProxy $group) {
+    $group->get('[/]', \PedidoController::class . ':TraerTodos');
+    $group->get('/pendientes', \ItemController::class . ':TraerPendientes');
+    $group->get('/cambiar_a_en_preparacion/{id}', \ItemController::class . ':CambiarItemAEnPreparacion');
+    $group->get('/{id}', \PedidoController::class . ':TraerUno');
+    $group->post('[/]', \PedidoController::class . ':CargarUno');
   });
+$app->group('/productos', function (RouteCollectorProxy $group) {
+    $group->get('[/]', \ProductoController::class . ':TraerTodos');
+    $group->get('/{id}', \ProductoController::class . ':TraerUno');
+    $group->post('/{sector}', \ProductoController::class . ':CargarUno');
+  });
+$app->group('/itemDTO', function (RouteCollectorProxy $group) {
+    $group->get('[/]', \ProductoController::class . ':TraerTodos');
+    $group->get('/{id}', \ItemController::class . ':TraerUnoDTO');
+    $group->post('/{sector}', \ProductoController::class . ':CargarUno');
+  });
+$app->group('/empleados', function (RouteCollectorProxy $group) {
+    $group->get('[/]', \EmpleadoController::class . ':TraerTodos');
+    $group->get('/{id}', \EmpleadoController::class . ':TraerUno');
+    $group->post('/{sector}', \EmpleadoController::class . ':CargarUno')
+      ->add(\Validaciones::class . ':verificarAdmin');
+  })
+    ->add(\Logger::class . ':LogOperacion')
+    ->add(\Validaciones::class . ':verificarToken');
 
 $app->get('[/]', function (Request $request, Response $response) {    
     $response->getBody()->write("Slim Framework 4 PHP");
