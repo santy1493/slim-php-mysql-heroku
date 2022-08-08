@@ -1,37 +1,17 @@
 <?php
-require_once './models/Pedido.php';
-require_once './models/Item.php';
-require_once './models/ItemDTO.php';
+require_once './models/Mesa.php';
 require_once './interfaces/IApiUsable.php';
 
-class PedidoController extends Pedido implements IApiUsable
+class MesaController extends Mesa implements IApiUsable
 {
     public function CargarUno($request, $response, $args)
     {
-        $parametros = $request->getParsedBody();
 
-        var_dump($parametros);
-        $items = $parametros['items'];
+        $mesa = new Mesa();
         
+        $id = $mesa->crearMesa();
 
-        // Creamos el usuario
-        $pedido = new Pedido();
-        $id_pedido = $pedido->crearPedido();
-        $pedido->id = $id_pedido;
-
-        foreach($items as $item) {
-
-            $newItem = new Item();
-            $newItem->id_producto = $item['id_producto'];
-            $newItem->cantidad = $item['cantidad'];
-            $newItem->id_pedido = $id_pedido;
-
-            $newItem->crearItem();
-        }
-
-        $pedido->calcularPrecioPedido();
-
-        $payload = json_encode(array("mensaje" => "Pedido creado con exito"));
+        $payload = json_encode(array("mensaje" => "Mesa creada con exito"));
 
         $response->getBody()->write($payload);
         return $response

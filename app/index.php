@@ -21,6 +21,7 @@ require_once './controllers/PedidoController.php';
 require_once './controllers/EmpleadoController.php';
 require_once './controllers/ProductoController.php';
 require_once './controllers/ItemController.php';
+require_once './controllers/MesaController.php';
 require_once './models/ItemDTO.php';
 
 // Load ENV
@@ -44,10 +45,10 @@ $app->group('/login', function (RouteCollectorProxy $group) {
   ->add(\Validaciones::class . ':verificarParametrosLogin');
 
 $app->group('/pedidos', function (RouteCollectorProxy $group) {
-    $group->get('[/]', \PedidoController::class . ':TraerTodos')
-      ->add(\Validaciones::class . ':verificarAdmin');
+    $group->get('[/]', \PedidoController::class . ':TraerTodos');
     $group->get('/{id}', \PedidoController::class . ':TraerUno');
-    $group->post('[/]', \PedidoController::class . ':CargarUno');
+    $group->post('[/]', \PedidoController::class . ':CargarUno')
+      ->add(\Validaciones::class . ':verificarMozo');
   })
     ->add(\Logger::class . ':LogOperacion')
     ->add(\Validaciones::class . ':verificarToken');
@@ -63,6 +64,11 @@ $app->group('/productos', function (RouteCollectorProxy $group) {
     $group->get('[/]', \ProductoController::class . ':TraerTodos');
     $group->get('/{id}', \ProductoController::class . ':TraerUno');
     $group->post('/{sector}', \ProductoController::class . ':CargarUno');
+  });
+$app->group('/mesas', function (RouteCollectorProxy $group) {
+    $group->get('[/]', \ProductoController::class . ':TraerTodos');
+    $group->get('/{id}', \ProductoController::class . ':TraerUno');
+    $group->post('[/]', \MesaController::class . ':CargarUno');
   });
 $app->group('/itemDTO', function (RouteCollectorProxy $group) {
     $group->get('[/]', \ProductoController::class . ':TraerTodos');

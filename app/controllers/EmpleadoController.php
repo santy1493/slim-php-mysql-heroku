@@ -22,6 +22,9 @@ class EmpleadoController extends Empleado implements IApiUsable
       else if($args['sector'] == 'cocineros') {
         $empleado->sector = 'cocineros';
       }
+      else if($args['sector'] == 'mozos') {
+        $empleado->sector = 'mozos';
+      }
       
       $empleado->crearEmpleado();
 

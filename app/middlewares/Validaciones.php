@@ -62,16 +62,22 @@ class Validaciones
             ->withHeader('Content-Type', 'application/json');
     }
 
-    public static function verificarMozo($request, $response, $next)
+    public static function verificarMozo($request, $handler)
     {
         $token = $request->getHeaderLine('token');
         $empl = AutJWT::ObtenerData($token);
+        $response = new Response();
 
-        if ($empl->sector == "mozos" || $empl->sectorId == "socios") { // Mozos u Socios
-            return $next($request, $response);
+        if ($empl->sector == "admin" || $empl->sector == "mozos") {
+            return $handler->handle($request);
         }
-        return $response->withJson(array("mensaje" => "ERROR: Debes ser Mozo para realizar esta accion"));
+
+        $payload = json_encode(array("mensaje" => "ERROR: Debes ser Mozo o Administrador para realizar esta accion"));
+        $response->getBody()->write($payload);
+        return $response
+            ->withHeader('Content-Type', 'application/json');
     }
+
 
     public static function verificarEmpleado($request, $response, $next)
     {
