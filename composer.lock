@@ -651,12 +651,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/database.git",
-                "reference": "6454a81ca248701aa7490cf4739b2bbeea93a49f"
+                "reference": "9725869e8faf236efb2362f3f969050816361eae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/database/zipball/6454a81ca248701aa7490cf4739b2bbeea93a49f",
-                "reference": "6454a81ca248701aa7490cf4739b2bbeea93a49f",
+                "url": "https://api.github.com/repos/illuminate/database/zipball/9725869e8faf236efb2362f3f969050816361eae",
+                "reference": "9725869e8faf236efb2362f3f969050816361eae",
                 "shasum": ""
             },
             "require": {
@@ -711,7 +711,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-08-05T20:58:15+00:00"
+            "time": "2022-08-08T19:53:51+00:00"
         },
         {
             "name": "illuminate/macroable",

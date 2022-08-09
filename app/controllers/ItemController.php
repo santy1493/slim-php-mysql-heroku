@@ -65,11 +65,28 @@ class ItemController extends Item implements IApiUsable
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerPendientesDTO($request, $response, $args)
+    {
+        $token = $request->getHeaderLine('token');
+        $empl = AutJWT::ObtenerData($token);
+
+        $lista = ItemDTO::obtenerItemsPendientes($empl->sector);
+        $payload = json_encode(array("listaItemsPendientes" => $lista));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
     public function CambiarItemAEnPreparacion($request, $response, $args)
     {
         $id = $args['id'];
+
+        $parametros = $request->getParsedBody();
+
+        $tiempo_estimado = $parametros['tiempo_estimado'];
  
-        Item::cambiarAEnPreparacion(intval($id));
+        Item::cambiarAEnPreparacion(intval($id), intval($tiempo_estimado));
 
         $payload = json_encode(array("mensaje" => "Se modifico el estado del item a 'en preparacion'"));
 
@@ -78,6 +95,18 @@ class ItemController extends Item implements IApiUsable
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function CambiarItemAListoParaServir($request, $response, $args)
+    {
+        $id = $args['id'];
+ 
+        Item::cambiarAListoParaServir(intval($id));
+
+        $payload = json_encode(array("mensaje" => "Se modifico el estado del item a 'en preparacion'"));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
     
     public function ModificarUno($request, $response, $args)
     {

@@ -69,13 +69,14 @@ class ItemDTO
         return $itemsDTOArray;
     }
 
-    public static function obtenerItemsPendientes() {
+    public static function obtenerItemsPendientes($sector) {
 
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, descripcion, cod_sector, estado, tiempo_estimado, id_pedido FROM items WHERE estado = 'pendiente'");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT i.id, p.descripcion, p.sector, i.estado, i.cantidad FROM items AS i INNER JOIN productos AS p ON p.id = i.id_producto WHERE i.estado = 'pendiente' AND p.sector = :sector;");
+        $consulta->bindValue(':sector', $sector, PDO::PARAM_STR);
         $consulta->execute();
 
-        return $consulta->fetchAll(PDO::FETCH_CLASS, 'Item');
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'ItemDTO');
     }
 
     public static function cambiarAEnPreparacion($id)

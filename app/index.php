@@ -56,7 +56,9 @@ $app->group('/pedidos', function (RouteCollectorProxy $group) {
 $app->group('/items', function (RouteCollectorProxy $group) {
     $group->get('[/]', \PedidoController::class . ':TraerTodos');
     $group->get('/pendientes', \ItemController::class . ':TraerPendientes');
-    $group->get('/cambiar_a_en_preparacion/{id}', \ItemController::class . ':CambiarItemAEnPreparacion');
+    $group->get('/pendientesDTO', \ItemController::class . ':TraerPendientesDTO');
+    $group->post('/cambiar_a_en_preparacion/{id}', \ItemController::class . ':CambiarItemAEnPreparacion');
+    $group->post('/cambiar_a_listo_para_servir/{id}', \ItemController::class . ':CambiarItemAListoParaServir');
     $group->get('/{id}', \PedidoController::class . ':TraerUno');
     $group->post('[/]', \PedidoController::class . ':CargarUno');
   });
@@ -68,6 +70,7 @@ $app->group('/productos', function (RouteCollectorProxy $group) {
 $app->group('/mesas', function (RouteCollectorProxy $group) {
     $group->get('[/]', \ProductoController::class . ':TraerTodos');
     $group->get('/{id}', \ProductoController::class . ':TraerUno');
+    $group->post('/sacar_foto/{id}', \MesaController::class . ':SacarFoto');
     $group->post('[/]', \MesaController::class . ':CargarUno');
   });
 $app->group('/itemDTO', function (RouteCollectorProxy $group) {

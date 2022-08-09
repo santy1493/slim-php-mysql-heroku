@@ -1,5 +1,6 @@
 <?php
 require_once './models/Mesa.php';
+require_once './models/UploadManager.php';
 require_once './interfaces/IApiUsable.php';
 
 class MesaController extends Mesa implements IApiUsable
@@ -16,6 +17,34 @@ class MesaController extends Mesa implements IApiUsable
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function SacarFoto($request, $response, $args)
+    {
+        $imagesDirectory = "./Fotos_de_la_Mesa/";
+
+        $id = $args['id'];
+        $mesa = Mesa::obtenerMesa($id);
+
+        if($mesa->id>0) {
+
+          $fileManager = new UploadManager($imagesDirectory, $mesa->id, $_FILES);
+          $path = UploadManager::getOrderImageNameExt($fileManager, $mesa->id);
+          Mesa::guardarFoto($mesa->id, $path);
+
+          $payload = json_encode(array("mensaje" => "Se guardo la foto con exito"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+
+        }
+
+        $payload = json_encode(array("mensaje" => "Error al guardar la foto"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
     }
 
     public function TraerUno($request, $response, $args)
@@ -55,18 +84,6 @@ class MesaController extends Mesa implements IApiUsable
         $response->getBody()->write($payload);
         return $response
           ->withHeader('Content-Type', 'application/json');
-    }
-
-    public function calcularPrecioTotal($id)
-    {
-        $objAccesoDato = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDato->prepararConsulta(
-            "UPDATE items SET 
-            estado = 'en preparacion' 
-            WHERE id = :id");
-
-        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
-        $consulta->execute();
     }
 
     public function BorrarUno($request, $response, $args)

@@ -56,4 +56,13 @@ class Mesa
         $consulta->bindValue(':id', $mesa, PDO::PARAM_INT);
         $consulta->execute();
     }
+
+    public static function guardarFoto($id, $foto)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET foto = :foto WHERE id = :id");
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->bindValue(':foto', $foto, PDO::PARAM_STR);
+        $consulta->execute();
+    }
 }

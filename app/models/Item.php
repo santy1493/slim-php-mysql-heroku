@@ -12,11 +12,10 @@ class Item
     public function crearItem()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO items (id_producto, cantidad, estado, tiempo_estimado, id_pedido) VALUES (:id_producto, :cantidad, :estado, :tiempo_estimado, :id_pedido)");
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO items (id_producto, cantidad, estado, id_pedido) VALUES (:id_producto, :cantidad, :estado, :id_pedido)");
         $consulta->bindValue(':id_producto', $this->id_producto, PDO::PARAM_INT);
         $consulta->bindValue(':cantidad', $this->cantidad, PDO::PARAM_INT);
         $consulta->bindValue(':estado', 'pendiente', PDO::PARAM_STR);
-        $consulta->bindValue(':tiempo_estimado', '', PDO::PARAM_STR);
         $consulta->bindValue(':id_pedido', $this->id_pedido, PDO::PARAM_INT);
         $consulta->execute();
 
@@ -61,15 +60,33 @@ class Item
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Item');
     }
 
-    public static function cambiarAEnPreparacion($id)
+    public static function cambiarAEnPreparacion($id, $tiempo_estimado)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDato->prepararConsulta(
             "UPDATE items SET 
-            estado = 'en preparacion' 
+            estado = 'en preparacion',
+            tiempo_estimado = :tiempo_estimado,
+            hora_inicio = :hora_inicio
             WHERE id = :id");
 
         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->bindValue(':tiempo_estimado', $tiempo_estimado, PDO::PARAM_INT);
+        $consulta->bindValue(':hora_inicio', date("Y-m-d H:i:s"), PDO::PARAM_STR);
+        $consulta->execute();
+    }
+
+    public static function cambiarAListoParaServir($id)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta(
+            "UPDATE items SET 
+            estado = 'listo para servir', 
+            hora_terminado = :hora_terminado 
+            WHERE id = :id");
+
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->bindValue(':hora_terminado', date("Y-m-d H:i:s"), PDO::PARAM_STR);
         $consulta->execute();
     }
 
