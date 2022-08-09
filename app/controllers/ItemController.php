@@ -55,7 +55,7 @@ class ItemController extends Item implements IApiUsable
           ->withHeader('Content-Type', 'application/json');
     }
 
-    public function TraerPendientes($request, $response, $args)
+    public function TraerPendientesDTO($request, $response, $args)
     {
         $lista = Item::obtenerItemsPendientes();
         $payload = json_encode(array("listaItemsPendientes" => $lista));
@@ -65,7 +65,7 @@ class ItemController extends Item implements IApiUsable
           ->withHeader('Content-Type', 'application/json');
     }
 
-    public function TraerPendientesDTO($request, $response, $args)
+    public function TraerPendientes($request, $response, $args)
     {
         $token = $request->getHeaderLine('token');
         $empl = AutJWT::ObtenerData($token);
@@ -78,14 +78,51 @@ class ItemController extends Item implements IApiUsable
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function TraerEnPreparacion($request, $response, $args)
+    {
+        $token = $request->getHeaderLine('token');
+        $empl = AutJWT::ObtenerData($token);
+
+        $lista = ItemDTO::obtenerItemsEnPreparacion($empl->sector);
+        $payload = json_encode(array("listaItemsPendientes" => $lista));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function TraerItemsAdmin($request, $response, $args)
+    {
+        $token = $request->getHeaderLine('token');
+        $empl = AutJWT::ObtenerData($token);
+
+        if($empl->sector == 'admin') {
+          $lista = ItemDTO::obtenerItemsAdmin($empl->sector);
+          $payload = json_encode(array("listaItems" => $lista));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        }
+
+        $payload = json_encode(array("Error" => "Debe ser admin para ver todos los items"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        
+    }
+
     public function CambiarItemAEnPreparacion($request, $response, $args)
     {
-      
+        $token = $request->getHeaderLine('token');
         $id = $args['id'];
 
         $item = Item::obtenerItem($id);
+        $empl = AutJWT::ObtenerData($token);
+        $producto = Producto::obtenerProducto($item->id_producto);
 
-        if($item->id>0) {
+        if($item->id>0 && $empl->sector == $producto->sector) {
 
           $items = ItemDTO::obtenerItemsDTOPorIdPedido($item->id_pedido);
           $pedido_enpreparacion = 0;
@@ -113,7 +150,7 @@ class ItemController extends Item implements IApiUsable
             ->withHeader('Content-Type', 'application/json');
         }
 
-        $payload = json_encode(array("mensaje" => "Item no encontrado"));
+        $payload = json_encode(array("mensaje" => "Item no encontrado o no pertenece al sector del empleado"));
 
           $response->getBody()->write($payload);
           return $response
@@ -122,11 +159,14 @@ class ItemController extends Item implements IApiUsable
 
     public function CambiarItemAListoParaServir($request, $response, $args)
     {
+        $token = $request->getHeaderLine('token');
         $id = $args['id'];
 
         $item = Item::obtenerItem($id);
+        $empl = AutJWT::ObtenerData($token);
+        $producto = Producto::obtenerProducto($item->id_producto);
 
-        if($item->id>0) {
+        if($item->id>0 && $empl->sector == $producto->sector) {
           Item::cambiarAListoParaServir(intval($id));
 
           $items = ItemDTO::obtenerItemsDTOPorIdPedido($item->id_pedido);
@@ -149,7 +189,7 @@ class ItemController extends Item implements IApiUsable
             ->withHeader('Content-Type', 'application/json');
         }
 
-        $payload = json_encode(array("mensaje" => "Item no encontrado"));
+        $payload = json_encode(array("mensaje" => "Item no encontrado o no pertenece al sector del empleado"));
 
           $response->getBody()->write($payload);
           return $response

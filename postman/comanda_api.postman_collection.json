@@ -1,0 +1,680 @@
+{
+	"info": {
+		"_postman_id": "1eb7d154-c8c2-4f5a-bf52-daba79d54187",
+		"name": "comanda_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "usuario",
+							"value": "santi19",
+							"type": "default"
+						},
+						{
+							"key": "clave",
+							"value": "dsd",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/login",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login mozo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "usuario",
+							"value": "santi19",
+							"type": "default"
+						},
+						{
+							"key": "clave",
+							"value": "dsd",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/login",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login cocinero",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "usuario",
+							"value": "santi19",
+							"type": "default"
+						},
+						{
+							"key": "clave",
+							"value": "dsd",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/login",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login cervecero",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "usuario",
+							"value": "santi19",
+							"type": "default"
+						},
+						{
+							"key": "clave",
+							"value": "dsd",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/login",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login bartender",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "usuario",
+							"value": "santi19",
+							"type": "default"
+						},
+						{
+							"key": "clave",
+							"value": "dsd",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:666/login",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ingresar pedido por mozo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMyOTIsImV4cCI6MTY2MDEzMzI5MiwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjIsIm5vbWJyZSI6Im1hcmlhbmEiLCJzZWN0b3IiOiJtb3pvcyIsInVzdWFyaW8iOiJtYXJpYW5hMTAiLCJjbGF2ZSI6Im1hcmlhbmExMCIsImVzdGFkbyI6MSwiZmVjaGFfYWx0YSI6IjIwMjItMDgtMDgifSwiYXBwIjoiTEEgQ09NQU5EQSJ9.-33YJ3-cjc0lz34P36Zdb6FyRzIIizK-dXDaKu284kI",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"items\":[\r\n        {\r\n            \"id_producto\": 1,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"id_producto\": 2,\r\n            \"cantidad\": 2\r\n        },\r\n        {\r\n            \"id_producto\": 3,\r\n            \"cantidad\": 1\r\n        },\r\n        {\r\n            \"id_producto\": 4,\r\n            \"cantidad\": 1\r\n        }\r\n    ],\r\n    \"id_mesa\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:666/pedidos",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sacar foto",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzQxNzEsImV4cCI6MTY2MDEzNDE3MSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjIsIm5vbWJyZSI6Im1hcmlhbmEiLCJzZWN0b3IiOiJtb3pvcyIsInVzdWFyaW8iOiJtYXJpYW5hMTAiLCJjbGF2ZSI6Im1hcmlhbmExMCIsImVzdGFkbyI6MSwiZmVjaGFfYWx0YSI6IjIwMjItMDgtMDgifSwiYXBwIjoiTEEgQ09NQU5EQSJ9.5ATbMF8TCi2CxDYoBxJuVfPU6vvsm7mlS03uM3poRRw",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "foto_mesa",
+							"type": "file",
+							"src": "/C:/Users/sfossa/Desktop/testcounter.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/mesas/sacar_foto/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"mesas",
+						"sacar_foto",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ver pendientes como cocinero",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzMTgsImV4cCI6MTY2MDEzMzMxOCwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjMsIm5vbWJyZSI6ImNhcmxvcyIsInNlY3RvciI6ImNvY2luZXJvcyIsInVzdWFyaW8iOiJjYXJsb3MxMCIsImNsYXZlIjoiY2FybG9zMTAiLCJlc3RhZG8iOjEsImZlY2hhX2FsdGEiOiIyMDIyLTA4LTA4In0sImFwcCI6IkxBIENPTUFOREEifQ.K5-Zie0_GOCBmpQv4QUtGqcuBbf6eLEBdy6mioXQ0sQ",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/items/pendientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"pendientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ver pendientes como cervecero",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzNTUsImV4cCI6MTY2MDEzMzM1NSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjQsIm5vbWJyZSI6InBlZHJvIiwic2VjdG9yIjoiY2VydmVjZXJvcyIsInVzdWFyaW8iOiJwZWRybzEwIiwiY2xhdmUiOiJwZWRybzEwIiwiZXN0YWRvIjoxLCJmZWNoYV9hbHRhIjoiMjAxMi0wNC0xOCJ9LCJhcHAiOiJMQSBDT01BTkRBIn0.4kqH4Rgw8iEW7BA2Q3ot82jxHWYPDtU4gO0Sbbxuh5Y",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/items/pendientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"pendientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "traer items admin",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzM0MTUsImV4cCI6MTY2MDEzMzQxNSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjEsIm5vbWJyZSI6InNhbnRpIiwic2VjdG9yIjoiYWRtaW4iLCJ1c3VhcmlvIjoic2FudGkxOSIsImNsYXZlIjoic2FudGkxOSIsImVzdGFkbyI6MSwiZmVjaGFfYWx0YSI6IjIwMTctMDgtMTQifSwiYXBwIjoiTEEgQ09NQU5EQSJ9.i7eqOojoFrKIpsYD0BXrhtE9Bsi21xyXD5yoEW6lLwA",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/items/items_admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"items_admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ver en preparacion cocinero",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzMTgsImV4cCI6MTY2MDEzMzMxOCwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjMsIm5vbWJyZSI6ImNhcmxvcyIsInNlY3RvciI6ImNvY2luZXJvcyIsInVzdWFyaW8iOiJjYXJsb3MxMCIsImNsYXZlIjoiY2FybG9zMTAiLCJlc3RhZG8iOjEsImZlY2hhX2FsdGEiOiIyMDIyLTA4LTA4In0sImFwcCI6IkxBIENPTUFOREEifQ.K5-Zie0_GOCBmpQv4QUtGqcuBbf6eLEBdy6mioXQ0sQ",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/items/en_preparacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"en_preparacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiar a en preparacion cocinero",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzMTgsImV4cCI6MTY2MDEzMzMxOCwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjMsIm5vbWJyZSI6ImNhcmxvcyIsInNlY3RvciI6ImNvY2luZXJvcyIsInVzdWFyaW8iOiJjYXJsb3MxMCIsImNsYXZlIjoiY2FybG9zMTAiLCJlc3RhZG8iOjEsImZlY2hhX2FsdGEiOiIyMDIyLTA4LTA4In0sImFwcCI6IkxBIENPTUFOREEifQ.K5-Zie0_GOCBmpQv4QUtGqcuBbf6eLEBdy6mioXQ0sQ",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tiempo_estimado",
+							"value": "12",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/items/cambiar_a_en_preparacion/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"cambiar_a_en_preparacion",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiar a en preparacion cervecero",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzMTgsImV4cCI6MTY2MDEzMzMxOCwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjMsIm5vbWJyZSI6ImNhcmxvcyIsInNlY3RvciI6ImNvY2luZXJvcyIsInVzdWFyaW8iOiJjYXJsb3MxMCIsImNsYXZlIjoiY2FybG9zMTAiLCJlc3RhZG8iOjEsImZlY2hhX2FsdGEiOiIyMDIyLTA4LTA4In0sImFwcCI6IkxBIENPTUFOREEifQ.K5-Zie0_GOCBmpQv4QUtGqcuBbf6eLEBdy6mioXQ0sQ",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tiempo_estimado",
+							"value": "12",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/items/cambiar_a_en_preparacion/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"cambiar_a_en_preparacion",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiar a en preparacion bartender",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzMTgsImV4cCI6MTY2MDEzMzMxOCwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjMsIm5vbWJyZSI6ImNhcmxvcyIsInNlY3RvciI6ImNvY2luZXJvcyIsInVzdWFyaW8iOiJjYXJsb3MxMCIsImNsYXZlIjoiY2FybG9zMTAiLCJlc3RhZG8iOjEsImZlY2hhX2FsdGEiOiIyMDIyLTA4LTA4In0sImFwcCI6IkxBIENPTUFOREEifQ.K5-Zie0_GOCBmpQv4QUtGqcuBbf6eLEBdy6mioXQ0sQ",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tiempo_estimado",
+							"value": "12",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/items/cambiar_a_en_preparacion/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"cambiar_a_en_preparacion",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ver pedidos como mozo",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzQxNzEsImV4cCI6MTY2MDEzNDE3MSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjIsIm5vbWJyZSI6Im1hcmlhbmEiLCJzZWN0b3IiOiJtb3pvcyIsInVzdWFyaW8iOiJtYXJpYW5hMTAiLCJjbGF2ZSI6Im1hcmlhbmExMCIsImVzdGFkbyI6MSwiZmVjaGFfYWx0YSI6IjIwMjItMDgtMDgifSwiYXBwIjoiTEEgQ09NQU5EQSJ9.5ATbMF8TCi2CxDYoBxJuVfPU6vvsm7mlS03uM3poRRw",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/pedidos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"pedidos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiar a listo para servir cervecero",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzNTUsImV4cCI6MTY2MDEzMzM1NSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjQsIm5vbWJyZSI6InBlZHJvIiwic2VjdG9yIjoiY2VydmVjZXJvcyIsInVzdWFyaW8iOiJwZWRybzEwIiwiY2xhdmUiOiJwZWRybzEwIiwiZXN0YWRvIjoxLCJmZWNoYV9hbHRhIjoiMjAxMi0wNC0xOCJ9LCJhcHAiOiJMQSBDT01BTkRBIn0.4kqH4Rgw8iEW7BA2Q3ot82jxHWYPDtU4gO0Sbbxuh5Y",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/items/cambiar_a_listo_para_servir/27",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"cambiar_a_listo_para_servir",
+						"27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiar a listo para servir bartender",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzNTUsImV4cCI6MTY2MDEzMzM1NSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjQsIm5vbWJyZSI6InBlZHJvIiwic2VjdG9yIjoiY2VydmVjZXJvcyIsInVzdWFyaW8iOiJwZWRybzEwIiwiY2xhdmUiOiJwZWRybzEwIiwiZXN0YWRvIjoxLCJmZWNoYV9hbHRhIjoiMjAxMi0wNC0xOCJ9LCJhcHAiOiJMQSBDT01BTkRBIn0.4kqH4Rgw8iEW7BA2Q3ot82jxHWYPDtU4gO0Sbbxuh5Y",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/items/cambiar_a_listo_para_servir/27",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"cambiar_a_listo_para_servir",
+						"27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiar a listo para servir cocinero",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzMzNTUsImV4cCI6MTY2MDEzMzM1NSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjQsIm5vbWJyZSI6InBlZHJvIiwic2VjdG9yIjoiY2VydmVjZXJvcyIsInVzdWFyaW8iOiJwZWRybzEwIiwiY2xhdmUiOiJwZWRybzEwIiwiZXN0YWRvIjoxLCJmZWNoYV9hbHRhIjoiMjAxMi0wNC0xOCJ9LCJhcHAiOiJMQSBDT01BTkRBIn0.4kqH4Rgw8iEW7BA2Q3ot82jxHWYPDtU4gO0Sbbxuh5Y",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/items/cambiar_a_listo_para_servir/27",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"items",
+						"cambiar_a_listo_para_servir",
+						"27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cerrar mesa admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjAwNzM0MTUsImV4cCI6MTY2MDEzMzQxNSwiYXVkIjoiODRiNDcyNzliMWFmMzU0ZGNiNGJhYmYyZGVmNWUzZDVjMDgwODc4YyIsImRhdGEiOnsiaWQiOjEsIm5vbWJyZSI6InNhbnRpIiwic2VjdG9yIjoiYWRtaW4iLCJ1c3VhcmlvIjoic2FudGkxOSIsImNsYXZlIjoic2FudGkxOSIsImVzdGFkbyI6MSwiZmVjaGFfYWx0YSI6IjIwMTctMDgtMTQifSwiYXBwIjoiTEEgQ09NQU5EQSJ9.i7eqOojoFrKIpsYD0BXrhtE9Bsi21xyXD5yoEW6lLwA",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:666/mesas/cerrar_mesa/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"mesas",
+						"cerrar_mesa",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "encuesta cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mesa",
+							"value": "5.6",
+							"type": "default"
+						},
+						{
+							"key": "restaurante",
+							"value": "6.2",
+							"type": "default"
+						},
+						{
+							"key": "mozo",
+							"value": "7.2",
+							"type": "default"
+						},
+						{
+							"key": "cocinero",
+							"value": "4.1",
+							"type": "default"
+						},
+						{
+							"key": "comentario",
+							"value": "Otro comentario.........",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/encuestas/puntuar_encuesta/fmb32",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"encuestas",
+						"puntuar_encuesta",
+						"fmb32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "descargar PDF",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "top",
+							"value": "3",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:666/archivo/descargar_pdf",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "666",
+					"path": [
+						"archivo",
+						"descargar_pdf"
+					],
+					"query": [
+						{
+							"key": "top",
+							"value": "3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

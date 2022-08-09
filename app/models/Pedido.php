@@ -25,7 +25,7 @@ class Pedido
     public static function obtenerTodos()
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, fecha_hora, precio_total, cod_alfanumerico FROM pedidos");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, estado, fecha_hora, precio_total, cod_alfanumerico FROM pedidos");
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'Pedido');

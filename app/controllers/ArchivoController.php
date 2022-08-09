@@ -33,7 +33,6 @@
 
     public function DescargarPDF($request, $response, $args){
         $params = $request->getParsedBody();
-        var_dump($params);
 
         $directory = './Archivos/';
         $payload = json_encode(array("Error" => 'File not Saved',"Best Polls" => 'Error While Writing The File'));

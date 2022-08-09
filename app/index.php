@@ -56,8 +56,10 @@ $app->group('/pedidos', function (RouteCollectorProxy $group) {
 
 $app->group('/items', function (RouteCollectorProxy $group) {
     $group->get('[/]', \PedidoController::class . ':TraerTodos');
-    $group->get('/pendientes', \ItemController::class . ':TraerPendientesDTO');
-    $group->get('/pendientesDTO', \ItemController::class . ':TraerPendientes');
+    $group->get('/pendientes', \ItemController::class . ':TraerPendientes');
+    $group->get('/en_preparacion', \ItemController::class . ':TraerEnPreparacion');
+    $group->get('/items_admin', \ItemController::class . ':TraerItemsAdmin');
+    $group->get('/pendientesDTO', \ItemController::class . ':TraerPendientesDTO');
     $group->post('/cambiar_a_en_preparacion/{id}', \ItemController::class . ':CambiarItemAEnPreparacion');
     $group->post('/cambiar_a_listo_para_servir/{id}', \ItemController::class . ':CambiarItemAListoParaServir');
     $group->get('/{id}', \PedidoController::class . ':TraerUno');
@@ -71,10 +73,16 @@ $app->group('/productos', function (RouteCollectorProxy $group) {
 $app->group('/mesas', function (RouteCollectorProxy $group) {
     $group->get('[/]', \ProductoController::class . ':TraerTodos');
     $group->get('/{id}', \ProductoController::class . ':TraerUno');
-    $group->post('/sacar_foto/{id}', \MesaController::class . ':SacarFoto');
+    $group->post('/cliente_comiendo/{id}', \MesaController::class . ':CambiarAClienteComiendo')
+      ->add(\Validaciones::class . ':verificarMozo');
+    $group->post('/cliente_pagando/{id}', \MesaController::class . ':CambiarAClientePagando')
+      ->add(\Validaciones::class . ':verificarMozo');
+    $group->post('/sacar_foto/{id}', \MesaController::class . ':SacarFoto')
+      ->add(\Validaciones::class . ':verificarMozo');
     $group->post('/cerrar_mesa/{id}', \MesaController::class . ':CerrarMesa')
-    ->add(\Validaciones::class . ':verificarAdmin');
-    $group->post('[/]', \MesaController::class . ':CargarUno');
+      ->add(\Validaciones::class . ':verificarAdmin');
+    $group->post('[/]', \MesaController::class . ':CargarUno')
+      ->add(\Validaciones::class . ':verificarAdmin');
   })
   ->add(\Validaciones::class . ':verificarToken');
 $app->group('/itemDTO', function (RouteCollectorProxy $group) {

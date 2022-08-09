@@ -86,6 +86,22 @@ class Mesa
         $consulta->execute();
     }
 
+    public static function updateAClienteComiendo($id)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET estado = 'con cliente comiendo' WHERE id = :id");
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+    }
+
+    public static function updateAClientePagando($id)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET estado = 'con cliente pagando' WHERE id = :id");
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+    }
+
     public static function guardarFoto($id, $foto)
     {
         $objAccesoDato = AccesoDatos::obtenerInstancia();

@@ -121,7 +121,7 @@ class Encuesta
             $pdf->Ln(5);
 
             // Columns of Poll Class
-            $header = array('ID', 'Pedido', 'Puntaje Mesa', 'Puntaje Resto', 'Puntaje Mozo', 'Puntaje Cocinero', 'Puntaje Total', 'Comentario');
+            $header = array('ID', 'Pedido', 'Mesa', 'Resto', 'Mozo', 'Cocinero', 'Total', 'Comentario');
             
             // RGB colors of the table
             $pdf->SetFillColor(125, 0, 0);

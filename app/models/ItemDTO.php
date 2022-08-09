@@ -72,8 +72,27 @@ class ItemDTO
     public static function obtenerItemsPendientes($sector) {
 
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT i.id, p.descripcion, p.sector, i.estado, i.cantidad FROM items AS i INNER JOIN productos AS p ON p.id = i.id_producto WHERE i.estado = 'pendiente' AND p.sector = :sector;");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT i.id, p.descripcion, p.sector, i.estado, i.tiempo_estimado, i.id_pedido, i.estado, i.cantidad FROM items AS i INNER JOIN productos AS p ON p.id = i.id_producto WHERE i.estado = 'pendiente' AND p.sector = :sector;");
         $consulta->bindValue(':sector', $sector, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'ItemDTO');
+    }
+
+    public static function obtenerItemsEnPreparacion($sector) {
+
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT i.id, p.descripcion, p.sector, i.tiempo_estimado, i.id_pedido, i.estado, i.cantidad FROM items AS i INNER JOIN productos AS p ON p.id = i.id_producto WHERE i.estado = 'en preparacion' AND p.sector = :sector;");
+        $consulta->bindValue(':sector', $sector, PDO::PARAM_STR);
+        $consulta->execute();
+
+        return $consulta->fetchAll(PDO::FETCH_CLASS, 'ItemDTO');
+    }
+
+    public static function obtenerItemsAdmin() {
+
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT i.id, p.descripcion, p.sector, i.estado, i.cantidad FROM items AS i INNER JOIN productos AS p ON p.id = i.id_producto;");
         $consulta->execute();
 
         return $consulta->fetchAll(PDO::FETCH_CLASS, 'ItemDTO');

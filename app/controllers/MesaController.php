@@ -135,6 +135,36 @@ class MesaController extends Mesa implements IApiUsable
           ->withHeader('Content-Type', 'application/json');
     }
 
+    public function CambiarAClienteComiendo($request, $response, $args)
+    {
+        $id = $args['id'];
+        $mesa = Mesa::obtenerMesa($id);
+        if ($mesa->id>0) {
+          Mesa::updateAClienteComiendo($id);
+        }
+        
+        $payload = json_encode(array("mensaje" => "Mesa cambiada a 'cliente comiendo'"));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function CambiarAClientePagando($request, $response, $args)
+    {
+        $id = $args['id'];
+        $mesa = Mesa::obtenerMesa($id);
+        if ($mesa->id>0) {
+          Mesa::updateAClientePagando($id);
+        }
+        
+        $payload = json_encode(array("mensaje" => "Mesa cambiada a 'cliente comiendo'"));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
     public function PuntuarEncuesta($request, $response, $args)
     {
         $parametros = $request->getParsedBody();
@@ -147,7 +177,7 @@ class MesaController extends Mesa implements IApiUsable
         $comentario = $parametros['comentario'];
 
         $encuesta = Encuesta::obtenerEncuestaPorCodigo($cod_pedido);
-        var_dump($encuesta);
+
         if ($encuesta->id>0) {
 
           $encuesta->mesa = $mesa;
