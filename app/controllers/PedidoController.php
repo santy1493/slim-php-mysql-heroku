@@ -69,7 +69,7 @@ class PedidoController extends Pedido implements IApiUsable
         foreach($lista as $pedido) {
           $pedido->items = ItemDTO::obtenerItemsDTOPorIdPedido($pedido->id);
         }
-        $payload = json_encode(array("listaUsuario" => $lista));
+        $payload = json_encode(array("pedidos" => $lista));
 
         $response->getBody()->write($payload);
         return $response

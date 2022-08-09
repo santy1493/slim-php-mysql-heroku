@@ -56,8 +56,8 @@ $app->group('/pedidos', function (RouteCollectorProxy $group) {
 
 $app->group('/items', function (RouteCollectorProxy $group) {
     $group->get('[/]', \PedidoController::class . ':TraerTodos');
-    $group->get('/pendientes', \ItemController::class . ':TraerPendientes');
-    $group->get('/pendientesDTO', \ItemController::class . ':TraerPendientesDTO');
+    $group->get('/pendientes', \ItemController::class . ':TraerPendientesDTO');
+    $group->get('/pendientesDTO', \ItemController::class . ':TraerPendientes');
     $group->post('/cambiar_a_en_preparacion/{id}', \ItemController::class . ':CambiarItemAEnPreparacion');
     $group->post('/cambiar_a_listo_para_servir/{id}', \ItemController::class . ':CambiarItemAListoParaServir');
     $group->get('/{id}', \PedidoController::class . ':TraerUno');
@@ -72,12 +72,21 @@ $app->group('/mesas', function (RouteCollectorProxy $group) {
     $group->get('[/]', \ProductoController::class . ':TraerTodos');
     $group->get('/{id}', \ProductoController::class . ':TraerUno');
     $group->post('/sacar_foto/{id}', \MesaController::class . ':SacarFoto');
+    $group->post('/cerrar_mesa/{id}', \MesaController::class . ':CerrarMesa')
+    ->add(\Validaciones::class . ':verificarAdmin');
     $group->post('[/]', \MesaController::class . ':CargarUno');
-  });
+  })
+  ->add(\Validaciones::class . ':verificarToken');
 $app->group('/itemDTO', function (RouteCollectorProxy $group) {
     $group->get('[/]', \ProductoController::class . ':TraerTodos');
     $group->get('/{id}', \ItemController::class . ':TraerUnoDTO');
     $group->post('/{sector}', \ProductoController::class . ':CargarUno');
+  });
+$app->group('/encuestas', function (RouteCollectorProxy $group) {
+    $group->get('[/]', \ProductoController::class . ':TraerTodos');
+    $group->get('/{id}', \ItemController::class . ':TraerUnoDTO');
+    $group->post('/{sector}', \ProductoController::class . ':CargarUno');
+    $group->post('/puntuar_encuesta/{cod_pedido}', \MesaController::class . ':PuntuarEncuesta');
   });
 $app->group('/empleados', function (RouteCollectorProxy $group) {
     $group->get('[/]', \EmpleadoController::class . ':TraerTodos');
@@ -91,7 +100,7 @@ $app->group('/empleados', function (RouteCollectorProxy $group) {
 $app->group('/archivo', function (RouteCollectorProxy $group) {
   $group->get('/guardar', \ArchivoController::class . ':Guardar');
   $group->get('/leer', \ArchivoController::class . ':Leer');
-  $group->post('/{sector}', \ProductoController::class . ':CargarUno');
+  $group->post('/descargar_pdf', \ArchivoController::class . ':DescargarPDF');
 });
 
 $app->get('[/]', function (Request $request, Response $response) {    

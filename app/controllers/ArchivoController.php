@@ -31,15 +31,17 @@
           ->withHeader('Content-Type', 'application/json');
     }
 
-    public function DownloadPdf($request, $response, $args){
+    public function DescargarPDF($request, $response, $args){
         $params = $request->getParsedBody();
-        $directory = './Reports_Files/';
+        var_dump($params);
+
+        $directory = './Archivos/';
         $payload = json_encode(array("Error" => 'File not Saved',"Best Polls" => 'Error While Writing The File'));
         
-        if($params['Amount_Polls']){
-            $amountPolls = $params['Amount_Polls'];
-            $payload = Poll::DownloadPdf($directory, $amountPolls);
-            echo 'File Saved in '.$directory;
+        if($params['top']){
+            $amountPolls = $params['top'];
+            $payload = Encuesta::DownloadPdf($directory, $amountPolls);
+            echo 'Archivo guardado en '.$directory;
         }
         
         $response->getBody()->write($payload);

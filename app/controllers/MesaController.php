@@ -1,5 +1,7 @@
 <?php
 require_once './models/Mesa.php';
+require_once './models/Pedido.php';
+require_once './models/Encuesta.php';
 require_once './models/UploadManager.php';
 require_once './interfaces/IApiUsable.php';
 
@@ -111,4 +113,66 @@ class MesaController extends Mesa implements IApiUsable
         return $response
           ->withHeader('Content-Type', 'application/json');
     }
+
+    public function CerrarMesa($request, $response, $args)
+    {
+        $id = $args['id'];
+        $mesa = Mesa::obtenerMesa($id);
+        if ($mesa->id_pedido>0) {
+          $pedido = Pedido::obtenerPedido($mesa->id_pedido);
+          $encuesta = new Encuesta();
+          $encuesta->cod_pedido = $pedido->cod_alfanumerico;
+
+          $encuesta->crearEncuesta();
+
+          Mesa::cerrandoMesa($id);
+        }
+        
+        $payload = json_encode(array("mensaje" => "Mesa cerrada con exito"));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+    public function PuntuarEncuesta($request, $response, $args)
+    {
+        $parametros = $request->getParsedBody();
+        $cod_pedido = $args['cod_pedido'];
+
+        $mesa = $parametros['mesa'];
+        $restaurante = $parametros['restaurante'];
+        $mozo = $parametros['mozo'];
+        $cocinero = $parametros['cocinero'];
+        $comentario = $parametros['comentario'];
+
+        $encuesta = Encuesta::obtenerEncuestaPorCodigo($cod_pedido);
+        var_dump($encuesta);
+        if ($encuesta->id>0) {
+
+          $encuesta->mesa = $mesa;
+          $encuesta->restaurante = $restaurante;
+          $encuesta->mozo = $mozo;
+          $encuesta->cocinero = $cocinero;
+          $encuesta->comentario = $comentario;
+
+          $encuesta->puntuarEncuesta();
+
+          $payload = json_encode(array("mensaje" => "Encuesta puntuada con exito"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        }
+        
+        $payload = json_encode(array("mensaje" => "Error al puntuar la encuesta"));
+
+        $response->getBody()->write($payload);
+        return $response
+          ->withHeader('Content-Type', 'application/json');
+    }
+
+
+
+
 }

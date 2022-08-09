@@ -80,19 +80,44 @@ class ItemController extends Item implements IApiUsable
 
     public function CambiarItemAEnPreparacion($request, $response, $args)
     {
+      
         $id = $args['id'];
 
-        $parametros = $request->getParsedBody();
+        $item = Item::obtenerItem($id);
 
-        $tiempo_estimado = $parametros['tiempo_estimado'];
- 
-        Item::cambiarAEnPreparacion(intval($id), intval($tiempo_estimado));
+        if($item->id>0) {
 
-        $payload = json_encode(array("mensaje" => "Se modifico el estado del item a 'en preparacion'"));
+          $items = ItemDTO::obtenerItemsDTOPorIdPedido($item->id_pedido);
+          $pedido_enpreparacion = 0;
 
-        $response->getBody()->write($payload);
-        return $response
-          ->withHeader('Content-Type', 'application/json');
+          foreach($items as $item) {
+            if($item->estado == 'en preparacion') {
+              $pedido_enpreparacion = 1;
+            }
+          }
+
+          if($pedido_enpreparacion == 0) {
+            Pedido::CambiarEnPreparacion($item->id_pedido);
+          }
+
+          $parametros = $request->getParsedBody();
+
+          $tiempo_estimado = $parametros['tiempo_estimado'];
+  
+          Item::cambiarAEnPreparacion(intval($id), intval($tiempo_estimado));
+
+          $payload = json_encode(array("mensaje" => "Se modifico el estado del item a 'en preparacion'"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        }
+
+        $payload = json_encode(array("mensaje" => "Item no encontrado"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
     }
 
     public function CambiarItemAListoParaServir($request, $response, $args)
