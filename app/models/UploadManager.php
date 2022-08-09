@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Pedido.php';
+require_once 'Mesa.php';
 
 class UploadManager{
 
@@ -35,8 +35,9 @@ class UploadManager{
     /**
      * Set the path to save the image.
      */
-    public function setPathToSaveImage(){
-        $this->_pathToSaveImage = $this->getDirectoryToSave().'Mesa_'.$this->getNewFileName().'.'.$this->getFileExtension();
+    public function setPathToSaveImage($order_id){
+        $mesa = Mesa::obtenerNumeroDePedido($order_id);
+        $this->_pathToSaveImage = $this->getDirectoryToSave().'Mesa_'.$this->getNewFileName().'_Pedido_'.$mesa->id_pedido.'.'.$this->getFileExtension();
     }
     
     //--- Getters ---//
@@ -76,7 +77,7 @@ class UploadManager{
         try {
             $this->setNewFileName($order_id);
             $this->setFileExtension();
-            $this->setPathToSaveImage();
+            $this->setPathToSaveImage($order_id);
             if ($this->moveUploadedFile($array['foto_mesa']['tmp_name'])) {
                 $success = true;
             }

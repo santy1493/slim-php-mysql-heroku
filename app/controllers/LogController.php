@@ -13,4 +13,6 @@ class LogController
         $logs = Log::obtenerLogs();
         return $response->withJson(array("logs" => $logs));
     }
+
+    
 }

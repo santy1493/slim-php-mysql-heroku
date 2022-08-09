@@ -2,6 +2,7 @@
 require_once './models/Pedido.php';
 require_once './models/Item.php';
 require_once './models/ItemDTO.php';
+require_once './models/Mesa.php';
 require_once './interfaces/IApiUsable.php';
 
 class PedidoController extends Pedido implements IApiUsable
@@ -10,14 +11,26 @@ class PedidoController extends Pedido implements IApiUsable
     {
         $parametros = $request->getParsedBody();
 
-        var_dump($parametros);
+        $id_mesa = $parametros['id_mesa'];
+        $mesa = Mesa::obtenerMesa(intval($id_mesa));
+
+        if($mesa->estado != 'cerrada') {
+
+          $payload = json_encode(array("mensaje" => "La mesa ya esta abierta"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        }
+
         $items = $parametros['items'];
         
-
         // Creamos el usuario
         $pedido = new Pedido();
         $id_pedido = $pedido->crearPedido();
         $pedido->id = $id_pedido;
+
+        Mesa::abrirMesa($mesa->id, $id_pedido);
 
         foreach($items as $item) {
 

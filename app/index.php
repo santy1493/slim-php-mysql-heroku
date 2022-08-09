@@ -22,6 +22,7 @@ require_once './controllers/EmpleadoController.php';
 require_once './controllers/ProductoController.php';
 require_once './controllers/ItemController.php';
 require_once './controllers/MesaController.php';
+require_once './controllers/ArchivoController.php';
 require_once './models/ItemDTO.php';
 
 // Load ENV
@@ -86,6 +87,12 @@ $app->group('/empleados', function (RouteCollectorProxy $group) {
   })
     ->add(\Logger::class . ':LogOperacion')
     ->add(\Validaciones::class . ':verificarToken');
+
+$app->group('/archivo', function (RouteCollectorProxy $group) {
+  $group->get('/guardar', \ArchivoController::class . ':Guardar');
+  $group->get('/leer', \ArchivoController::class . ':Leer');
+  $group->post('/{sector}', \ProductoController::class . ':CargarUno');
+});
 
 $app->get('[/]', function (Request $request, Response $response) {    
     $response->getBody()->write("Slim Framework 4 PHP");

@@ -21,6 +21,18 @@ class MesaController extends Mesa implements IApiUsable
 
     public function SacarFoto($request, $response, $args)
     {
+        $id_mesa = $args['id'];
+        $mesa = Mesa::obtenerMesa(intval($id_mesa));
+
+        if($mesa->estado == 'cerrada') {
+
+          $payload = json_encode(array("mensaje" => "La mesa esta cerrada"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        }
+
         $imagesDirectory = "./Fotos_de_la_Mesa/";
 
         $id = $args['id'];

@@ -7,6 +7,8 @@ class Item
     public $cantidad;
     public $estado;
     public $tiempo_estimado;
+    public $hora_inicio;
+    public $hora_terminado;
     public $id_pedido;
 
     public function crearItem()
@@ -89,6 +91,8 @@ class Item
         $consulta->bindValue(':hora_terminado', date("Y-m-d H:i:s"), PDO::PARAM_STR);
         $consulta->execute();
     }
+
+
 
     public function modificarItem()
     {

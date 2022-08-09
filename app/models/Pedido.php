@@ -3,6 +3,7 @@
 class Pedido
 {
     public $id;
+    public $estado;
     public $fecha_hora;
     public $precio_total;
     public $cod_alfanumerico;
@@ -13,7 +14,7 @@ class Pedido
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
 
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO pedidos (fecha_hora, cod_alfanumerico) VALUES (:fecha_hora, :cod_alfanumerico)");
+        $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO pedidos (estado, fecha_hora, cod_alfanumerico) VALUES ('en preparacion', :fecha_hora, :cod_alfanumerico)");
         $consulta->bindValue(':fecha_hora', date("Y-m-d H:i:s"), PDO::PARAM_STR);
         $consulta->bindValue(':cod_alfanumerico', substr(str_shuffle($permitted_chars), 0, 5), PDO::PARAM_STR);
         $consulta->execute();
@@ -76,4 +77,14 @@ class Pedido
         $consulta->bindValue(':id', $this->id, PDO::PARAM_INT);
         $consulta->execute();
     }
+
+    public static function CambiarListoParaServir($id) {
+
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE pedidos SET estado = 'listo para servir' WHERE id = :id");
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+    }
+
+
 }

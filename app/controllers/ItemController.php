@@ -98,14 +98,38 @@ class ItemController extends Item implements IApiUsable
     public function CambiarItemAListoParaServir($request, $response, $args)
     {
         $id = $args['id'];
- 
-        Item::cambiarAListoParaServir(intval($id));
 
-        $payload = json_encode(array("mensaje" => "Se modifico el estado del item a 'en preparacion'"));
+        $item = Item::obtenerItem($id);
 
-        $response->getBody()->write($payload);
-        return $response
-          ->withHeader('Content-Type', 'application/json');
+        if($item->id>0) {
+          Item::cambiarAListoParaServir(intval($id));
+
+          $items = ItemDTO::obtenerItemsDTOPorIdPedido($item->id_pedido);
+          $pedido_listo = 1;
+
+          foreach($items as $item) {
+            if($item->estado != 'listo para servir') {
+              $pedido_listo = 0;
+            }
+          }
+
+          if($pedido_listo) {
+            Pedido::CambiarListoParaServir($item->id_pedido);
+          }
+
+          $payload = json_encode(array("mensaje" => "Se modifico el estado del item a 'listo para servir'"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        }
+
+        $payload = json_encode(array("mensaje" => "Item no encontrado"));
+
+          $response->getBody()->write($payload);
+          return $response
+            ->withHeader('Content-Type', 'application/json');
+        
     }
     
     public function ModificarUno($request, $response, $args)

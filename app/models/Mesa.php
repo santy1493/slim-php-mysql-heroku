@@ -32,11 +32,30 @@ class Mesa
     public static function obtenerMesa($id)
     {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
-        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, estado, foto FROM mesas WHERE id = :id");
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, estado, foto, id_pedido FROM mesas WHERE id = :id");
         $consulta->bindValue(':id', $id, PDO::PARAM_INT);
         $consulta->execute();
 
         return $consulta->fetchObject('Pedido');
+    }
+
+    public static function obtenerNumeroDePedido($id)
+    {
+        $objAccesoDatos = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDatos->prepararConsulta("SELECT id, estado, foto, id_pedido FROM mesas WHERE id = :id");
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
+
+        return $consulta->fetchObject('Mesa');
+    }
+
+    public static function abrirMesa($id, $id_pedido)
+    {
+        $objAccesoDato = AccesoDatos::obtenerInstancia();
+        $consulta = $objAccesoDato->prepararConsulta("UPDATE mesas SET estado = 'con cliente esperando pedido', id_pedido = :id_pedido WHERE id = :id");
+        $consulta->bindValue(':id_pedido', $id_pedido, PDO::PARAM_INT);
+        $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+        $consulta->execute();
     }
 
     public function modificarMesa()
